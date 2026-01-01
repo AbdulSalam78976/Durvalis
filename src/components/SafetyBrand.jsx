@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { AlertTriangle, CheckCircle, Info, Shield, Users, Award, ChevronRight } from 'lucide-react';
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Scale, Settings, Syringe, CalendarCheck, CheckCircle } from 'lucide-react';
 

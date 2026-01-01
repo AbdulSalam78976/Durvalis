@@ -1,4 +1,5 @@
 import { useState } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Send, User, Mail, MessageSquare, CheckCircle, Clock, ArrowRight, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
@@ -60,7 +61,7 @@ function ContactForm() {
             console.error('EmailJS Error Details:', err);
             console.error('Error status:', err.status);
             console.error('Error text:', err.text);
-            
+
             let errorMessage = 'Failed to send message. ';
             if (err.status === 400) {
                 errorMessage += 'Invalid template or service configuration.';
@@ -71,7 +72,7 @@ function ContactForm() {
             } else {
                 errorMessage += 'Please try again or email us directly at contact@durvalis.com';
             }
-            
+
             setError(errorMessage);
         }
     };
