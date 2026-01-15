@@ -35,9 +35,11 @@ function HowToUse() {
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden">
       {/* Background elements */}
-      <div className="absolute top-1/2 left-0 w-full h-full bg-gradient-to-b from-gray-50/50 to-white -z-10" />
+      <div className="absolute top-1/2 left-0 w-full h-full bg-gradient-to-b from-red-50/30 to-transparent -z-10" />
+      <div className="absolute top-20 right-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <motion.div

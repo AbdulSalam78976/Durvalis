@@ -35,7 +35,9 @@ function SafetyBrand() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+    <section className="py-20 bg-gradient-to-b from-white to-gray-50 overflow-hidden relative">
+      <div className="absolute top-20 left-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div

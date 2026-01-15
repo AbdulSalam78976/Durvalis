@@ -2,41 +2,51 @@ import { Facebook, Twitter, Instagram, Mail, Phone, MapPin, Shield, Truck, Award
 
 function Footer() {
   return (
-    <footer id="contact" className="bg-[#0f172a] text-white pt-20 pb-10 relative overflow-hidden">
+    <footer id="contact" className="bg-gradient-to-b from-gray-900 to-[#0f172a] text-white pt-20 pb-10 relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-[url('/assets/grid.svg')] opacity-5" />
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-600/50 to-transparent" />
+      
+      {/* Decorative elements */}
+      <div className="absolute top-20 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <div className="mb-8">
-              <a href="#home" className="inline-block group">
-                <div className="border-2 border-red-600 rounded-full px-6 py-1.5 transition-transform group-hover:scale-105">
+              <a href="/" className="inline-block group">
+                <div className="border-2 border-red-600 rounded-full px-6 py-2 transition-all group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-red-600/50">
                   <span className="text-3xl font-sans font-black italic tracking-tighter text-white leading-none">
                     DURVALIS
                   </span>
                 </div>
               </a>
-              <p className="mt-6 text-lg text-gray-400 max-w-md font-light leading-relaxed">
+              <p className="mt-6 text-base text-gray-400 max-w-md font-light leading-relaxed">
                 Premium equine health solutions for healthier, happier horses.
                 Trusted by veterinarians and horse owners nationwide.
               </p>
             </div>
 
             {/* Trust badges */}
-            <div className="flex flex-wrap gap-6 mt-8">
-              <div className="flex items-center gap-2 text-sm text-gray-400 font-medium">
-                <Shield size={18} className="text-green-500" />
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 text-sm text-gray-300 font-medium group hover:text-green-400 transition-colors">
+                <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
+                  <Shield size={16} className="text-green-400" />
+                </div>
                 <span>Veterinarian Approved</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-400 font-medium">
-                <Truck size={18} className="text-blue-500" />
+              <div className="flex items-center gap-3 text-sm text-gray-300 font-medium group hover:text-blue-400 transition-colors">
+                <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                  <Truck size={16} className="text-blue-400" />
+                </div>
                 <span>Free Shipping*</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-400 font-medium">
-                <Award size={18} className="text-[var(--color-primary-light)]" />
+              <div className="flex items-center gap-3 text-sm text-gray-300 font-medium group hover:text-red-400 transition-colors">
+                <div className="w-8 h-8 bg-red-500/20 rounded-lg flex items-center justify-center group-hover:bg-red-500/30 transition-colors">
+                  <Award size={16} className="text-red-400" />
+                </div>
                 <span>Quality Guaranteed</span>
               </div>
             </div>
@@ -44,17 +54,23 @@ function Footer() {
 
           {/* Links Column */}
           <div>
-            <h3 className="font-serif font-bold text-xl mb-8 text-white">
+            <h3 className="font-serif font-bold text-xl mb-6 text-white flex items-center gap-2">
+              <div className="w-1 h-6 bg-red-600 rounded-full" />
               Quick Links
             </h3>
-            <nav className="space-y-4">
-              {['Home', 'Products', 'FAQ', 'Contact'].map((item) => (
+            <nav className="space-y-3">
+              {[
+                { name: 'Home', href: '/' },
+                { name: 'Product', href: '/product' },
+                { name: 'Contact', href: '/contact' }
+              ].map((item) => (
                 <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="block text-gray-400 hover:text-[var(--color-primary-light)] transition-colors hover:translate-x-1 duration-300 font-medium"
+                  key={item.name}
+                  href={item.href}
+                  className="block text-gray-400 hover:text-red-400 transition-colors hover:translate-x-2 duration-300 font-medium group flex items-center gap-2"
                 >
-                  {item}
+                  <span className="w-0 h-px bg-red-600 group-hover:w-4 transition-all duration-300" />
+                  {item.name}
                 </a>
               ))}
             </nav>
@@ -62,33 +78,43 @@ function Footer() {
 
           {/* Contact Column */}
           <div>
-            <h3 className="font-serif font-bold text-xl mb-8 text-white">
+            <h3 className="font-serif font-bold text-xl mb-6 text-white flex items-center gap-2">
+              <div className="w-1 h-6 bg-red-600 rounded-full" />
               Get in Touch
             </h3>
-            <div className="space-y-5">
+            <div className="space-y-4">
               <a
                 href="mailto:contact@durvalis.com"
                 className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group"
               >
-                <div className="w-10 h-10 bg-gray-800/50 rounded-lg flex items-center justify-center group-hover:bg-[var(--color-primary)] transition-colors border border-gray-700 group-hover:border-[var(--color-primary)]">
+                <div className="w-10 h-10 bg-gray-800/50 rounded-xl flex items-center justify-center group-hover:bg-red-600 transition-all border border-gray-700 group-hover:border-red-600 group-hover:scale-110">
                   <Mail size={18} />
                 </div>
-                <span className="font-medium">contact@durvalis.com</span>
+                <div>
+                  <div className="text-xs text-gray-500 mb-0.5">Email</div>
+                  <span className="font-medium text-sm">contact@durvalis.com</span>
+                </div>
               </a>
               <a
                 href="tel:+737-999-0318"
                 className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group"
               >
-                <div className="w-10 h-10 bg-gray-800/50 rounded-lg flex items-center justify-center group-hover:bg-[var(--color-primary)] transition-colors border border-gray-700 group-hover:border-[var(--color-primary)]">
+                <div className="w-10 h-10 bg-gray-800/50 rounded-xl flex items-center justify-center group-hover:bg-red-600 transition-all border border-gray-700 group-hover:border-red-600 group-hover:scale-110">
                   <Phone size={18} />
                 </div>
-                <span className="font-medium">737-999-0318</span>
+                <div>
+                  <div className="text-xs text-gray-500 mb-0.5">Phone</div>
+                  <span className="font-medium text-sm">737-999-0318</span>
+                </div>
               </a>
-              <div className="flex items-center gap-3 text-gray-400 group">
-                <div className="w-10 h-10 bg-gray-800/50 rounded-lg flex items-center justify-center border border-gray-700">
+              <div className="flex items-start gap-3 text-gray-400 group">
+                <div className="w-10 h-10 bg-gray-800/50 rounded-xl flex items-center justify-center border border-gray-700 flex-shrink-0">
                   <MapPin size={18} />
                 </div>
-                <span className="font-medium">5900 Balcones Dr #22995<br />Austin, Texas 78731</span>
+                <div>
+                  <div className="text-xs text-gray-500 mb-0.5">Address</div>
+                  <span className="font-medium text-sm leading-relaxed">5900 Balcones Dr #22995<br />Austin, Texas 78731</span>
+                </div>
               </div>
             </div>
 

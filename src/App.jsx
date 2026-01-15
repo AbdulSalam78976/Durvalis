@@ -1,35 +1,104 @@
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import ProductDetails from './components/ProductDetails';
-import HowToUse from './components/HowToUse';
-import SafetyBrand from './components/SafetyBrand';
-import FDAApproval from './components/FDAApproval';
-import FAQ from './components/FAQ';
-import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
-import SEO from './components/SEO';
+import HomePage from './pages/HomePage';
+import ProductPage from './pages/ProductPage';
+import ContactPage from './pages/ContactPage';
+import Checkout from './components/Checkout';
+import CheckoutSuccess from './components/CheckoutSuccess';
+import CartSidebar from './components/CartSidebar';
+import { CartProvider } from './context/CartContext';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const amazonUrl = "https://a.co/d/b8HCozh";
 
-  return (
-    <main className="min-h-screen pt-20">
-      <SEO
-        title="Durvalis - Premium Equine Parasite Control"
-        description="Professional-grade apple-flavored dewormer for complete equine parasite control. Shop now on Amazon."
-        canonical="https://durvalis.com"
-      />
-      <Header amazonUrl={amazonUrl} />
-      <Hero amazonUrl={amazonUrl} />
-      <ProductDetails amazonUrl={amazonUrl} />
-      <HowToUse />
-      <SafetyBrand />
-      <FDAApproval />
-      <FAQ amazonUrl={amazonUrl} />
-      <ContactForm />
+  // Handle URL routing
+  useEffect(() => {
+    const path = window.location.pathname;
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    if (path === '/checkout') {
+      setCurrentPage('checkout');
+    } else if (path === '/success' || urlParams.get('session_id')) {
+      setCurrentPage('success');
+    } else if (path === '/product') {
+      setCurrentPage('product');
+    } else if (path === '/contact') {
+      setCurrentPage('contact');
+    } else {
+      setCurrentPage('home');
+    }
+  }, []);
 
-      <Footer />
-    </main>
+  // Update URL when page changes
+  const navigateTo = (page) => {
+    setCurrentPage(page);
+    const url = page === 'home' ? '/' : `/${page}`;
+    window.history.pushState({}, '', url);
+  };
+
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    navigateTo('checkout');
+  };
+
+  const handleAddToCart = () => {
+    setIsCartOpen(true);
+  };
+
+  if (currentPage === 'checkout') {
+    return (
+      <CartProvider>
+        <Checkout onBack={() => navigateTo('home')} />
+      </CartProvider>
+    );
+  }
+
+  if (currentPage === 'success') {
+    return (
+      <CheckoutSuccess onBackToHome={() => navigateTo('home')} />
+    );
+  }
+
+  return (
+    <CartProvider>
+      <div className="min-h-screen">
+        <Header 
+          onCartOpen={() => setIsCartOpen(true)}
+        />
+        
+        {currentPage === 'home' && (
+          <HomePage 
+            amazonUrl={amazonUrl} 
+            onAddToCart={handleAddToCart}
+            onBuyNow={handleCheckout}
+          />
+        )}
+        
+        {currentPage === 'product' && (
+          <ProductPage 
+            amazonUrl={amazonUrl} 
+            onAddToCart={handleAddToCart}
+            onBuyNow={handleCheckout}
+          />
+        )}
+        
+        {currentPage === 'contact' && (
+          <ContactPage />
+        )}
+        
+        <Footer />
+        
+        {/* Cart Sidebar */}
+        <CartSidebar 
+          isOpen={isCartOpen}
+          onClose={() => setIsCartOpen(false)}
+          onCheckout={handleCheckout}
+        />
+      </div>
+    </CartProvider>
   );
 }
 

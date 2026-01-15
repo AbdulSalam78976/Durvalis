@@ -31,17 +31,19 @@ function FAQ({ amazonUrl }) {
   ];
 
   return (
-    <section id="faq" className="py-24 bg-gray-50 relative overflow-hidden">
+    <section id="faq" className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       {/* Background blobs */}
-      <div className="absolute -top-20 -left-20 w-96 h-96 bg-red-500/5 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 -right-20 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl" />
+      <div className="absolute -top-20 -left-20 w-96 h-96 bg-red-600/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 -right-20 w-80 h-80 bg-blue-600/5 rounded-full blur-3xl" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-[var(--color-primary)]/10 text-[var(--color-primary)] rounded-2xl mb-6 shadow-sm">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-600 to-red-800 text-white rounded-2xl mb-6 shadow-xl shadow-red-900/30">
             <HelpCircle size={32} />
           </div>
-          <h2 className="text-4xl font-serif font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+            Frequently Asked <span className="text-red-600">Questions</span>
+          </h2>
           <p className="text-xl text-gray-600 font-light">Everything you need to know about Durvalis Ivermectin Paste.</p>
         </div>
 
@@ -53,16 +55,16 @@ function FAQ({ amazonUrl }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className={`rounded-2xl overflow-hidden transition-all duration-300 ${openFaq === index ? 'bg-white shadow-lg ring-1 ring-gray-900/5' : 'bg-white/60 hover:bg-white shadow-sm ring-1 ring-gray-900/5'}`}
+              className={`rounded-2xl overflow-hidden transition-all duration-300 ${openFaq === index ? 'bg-white shadow-xl ring-2 ring-red-600/20' : 'bg-white/80 hover:bg-white shadow-md ring-1 ring-gray-900/5'}`}
             >
               <button
                 onClick={() => toggleFaq(index)}
-                className="w-full px-8 py-6 text-left flex justify-between items-center group cursor-pointer"
+                className="w-full px-6 sm:px-8 py-6 text-left flex justify-between items-start sm:items-center gap-4 group cursor-pointer"
               >
-                <span className={`font-bold text-lg select-none transition-colors ${openFaq === index ? 'text-[var(--color-primary)]' : 'text-gray-800'}`}>
+                <span className={`font-bold text-base sm:text-lg select-none transition-colors font-sans ${openFaq === index ? 'text-red-600' : 'text-gray-800 group-hover:text-gray-900'}`}>
                   {faq.question}
                 </span>
-                <span className={`flex-shrink-0 ml-4 p-2 rounded-full transition-all duration-300 ${openFaq === index ? 'bg-[var(--color-primary)] text-white rotate-180' : 'bg-gray-100 text-gray-400 group-hover:bg-[var(--color-primary)]/10 group-hover:text-[var(--color-primary)]'}`}>
+                <span className={`flex-shrink-0 p-2 rounded-xl transition-all duration-300 ${openFaq === index ? 'bg-red-600 text-white rotate-180 shadow-lg' : 'bg-gray-100 text-gray-400 group-hover:bg-red-50 group-hover:text-red-600'}`}>
                   {openFaq === index ? <Minus size={20} /> : <Plus size={20} />}
                 </span>
               </button>
@@ -74,7 +76,7 @@ function FAQ({ amazonUrl }) {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
-                    <div className="px-8 pb-8 pt-0 text-gray-600 leading-relaxed font-light text-lg">
+                    <div className="px-6 sm:px-8 pb-6 pt-0 text-gray-600 leading-relaxed font-light text-base sm:text-lg border-t border-gray-100 mt-2 pt-4">
                       {faq.answer}
                     </div>
                   </motion.div>
@@ -83,6 +85,24 @@ function FAQ({ amazonUrl }) {
             </motion.div>
           ))}
         </div>
+        
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center bg-gradient-to-br from-red-600 to-red-800 rounded-2xl p-8 sm:p-10 text-white shadow-xl shadow-red-900/30"
+        >
+          <h3 className="text-2xl sm:text-3xl font-bold mb-3 font-serif">Still Have Questions?</h3>
+          <p className="text-red-100 mb-6 text-base sm:text-lg">Our equine specialists are here to help you make the best choice for your horse.</p>
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-white text-red-600 px-8 py-4 rounded-xl font-bold hover:shadow-2xl transition-all hover:scale-105"
+          >
+            Contact Us
+            <HelpCircle size={20} />
+          </a>
+        </motion.div>
       </div>
     </section>
   );

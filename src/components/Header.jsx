@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ShoppingCart } from 'lucide-react';
+import { Menu, X, ShoppingCart, ShieldCheck, ArrowRight } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
-function Header({ amazonUrl }) {
+function Header({ onCartOpen }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { itemCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,10 +18,9 @@ function Header({ amazonUrl }) {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Product', href: '#product' },
-    { name: 'FAQ', href: '#faq' },
-    { name: 'Contact', href: '#contact-form' },
+    { name: 'Home', href: '/' },
+    { name: 'Product', href: '/product' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -35,7 +36,7 @@ function Header({ amazonUrl }) {
           {/* Logo - Badge Style */}
           <a href="#home" className="group">
             <div className="border-3 border-[var(--color-primary)] rounded-full px-5 py-1 transition-transform group-hover:scale-105">
-              <span className="text-2xl font-sans font-black italic tracking-tighter text-gray-900 leading-none">
+              <span className="text-3xl font-sans font-black italic tracking-tighter text-gray-900 leading-none">
                 DURVALIS
               </span>
             </div>
@@ -54,18 +55,20 @@ function Header({ amazonUrl }) {
               </a>
             ))}
 
-            {/* Shop Now Button */}
-            <motion.a
+            {/* Cart Button */}
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href={amazonUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[var(--color-primary)] text-white px-6 py-2.5 rounded-full font-medium shadow-lg hover:shadow-[var(--color-primary)]/40 transition-all flex items-center gap-2"
+              onClick={onCartOpen}
+              className="relative bg-gray-100 text-gray-700 px-4 py-2.5 rounded-full font-medium shadow-sm hover:shadow-md hover:bg-gray-200 transition-all flex items-center gap-2"
             >
               <ShoppingCart size={18} />
-              <span className="tracking-wide">Shop Now</span>
-            </motion.a>
+              {itemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+                  {itemCount}
+                </span>
+              )}
+            </motion.button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -90,30 +93,61 @@ function Header({ amazonUrl }) {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden glass rounded-xl mt-4 mx-2"
+              className="md:hidden overflow-hidden"
             >
-              <div className="py-6 px-4 space-y-4">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-gray-700 font-medium hover:text-[var(--color-primary)] py-2 px-4 hover:bg-red-50/50 rounded-lg transition-all"
+              <div className="absolute top-full left-0 right-0 bg-white shadow-2xl border-t border-gray-100 mt-2 mx-4 rounded-2xl">
+                <div className="py-6 px-4 space-y-2">
+                  {navLinks.map((link, index) => (
+                    <motion.a
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="block text-gray-700 font-semibold hover:text-[var(--color-primary)] py-3 px-4 hover:bg-red-50 rounded-xl transition-all group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span>{link.name}</span>
+                        <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[var(--color-primary)]" />
+                      </div>
+                    </motion.a>
+                  ))}
+                  
+                  {/* Divider */}
+                  <div className="border-t border-gray-100 my-4" />
+                  
+                  {/* Cart Button */}
+                  <motion.button
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: navLinks.length * 0.1 }}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      onCartOpen();
+                    }}
+                    className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3 relative group"
                   >
-                    {link.name}
-                  </a>
-                ))}
-                <motion.a
-                  href={amazonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  whileTap={{ scale: 0.98 }}
-                  className="block w-full text-center bg-[var(--color-primary)] text-white px-6 py-3.5 rounded-full font-medium shadow-md hover:bg-[var(--color-primary-dark)] transition-colors flex items-center justify-center gap-2"
-                >
-                  <ShoppingCart size={18} />
-                  Shop on Amazon
-                </motion.a>
+                    <ShoppingCart size={20} />
+                    <span>View Cart</span>
+                    {itemCount > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-white text-red-600 text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-md">
+                        {itemCount}
+                      </span>
+                    )}
+                  </motion.button>
+                  
+                  {/* Trust Badge */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: (navLinks.length + 1) * 0.1 }}
+                    className="pt-4 flex items-center justify-center gap-2 text-xs text-gray-500"
+                  >
+                    <ShieldCheck size={14} className="text-green-600" />
+                    <span>Secure Shopping</span>
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
           )}

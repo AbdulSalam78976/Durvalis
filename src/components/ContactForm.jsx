@@ -78,9 +78,11 @@ function ContactForm() {
     };
 
     return (
-        <section id="contact-form" className="py-24 bg-white relative overflow-hidden">
+        <section id="contact-form" className="min-h-screen py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative overflow-hidden">
             {/* Background elements */}
-            <div className="absolute top-0 left-0 w-full h-1/2 bg-gray-50 skew-y-3 transform origin-top-left -z-10" />
+            <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-br from-red-50 to-transparent skew-y-3 transform origin-top-left -z-10" />
+            <div className="absolute top-20 right-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-20 left-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
 
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
@@ -89,11 +91,11 @@ function ContactForm() {
                     viewport={{ once: true, margin: "-100px" }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[var(--color-primary)] to-red-800 text-white rounded-2xl mb-6 shadow-lg shadow-red-900/20">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-600 to-red-800 text-white rounded-2xl mb-6 shadow-xl shadow-red-900/30">
                         <Mail size={32} />
                     </div>
                     <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
-                        Get in <span className="text-[var(--color-primary)]">Touch</span>
+                        Get in <span className="text-red-600">Touch</span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto font-light">
                         Questions about our products? Our equine specialists are here to help.
@@ -108,23 +110,23 @@ function ContactForm() {
                         viewport={{ once: true }}
                         className="space-y-6"
                     >
-                        <div className="bg-white rounded-2xl p-8 shadow-lg shadow-gray-200/50 border border-gray-100 hover:-translate-y-1 transition-transform">
-                            <div className="w-12 h-12 bg-red-50 text-[var(--color-primary)] rounded-xl flex items-center justify-center mb-4">
+                        <div className="bg-white rounded-2xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100 hover:-translate-y-2 transition-all duration-300 group">
+                            <div className="w-12 h-12 bg-gradient-to-br from-red-50 to-red-100 text-red-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                 <Mail size={24} />
                             </div>
                             <h3 className="text-lg font-bold text-gray-900 mb-2 font-serif">Email Support</h3>
                             <p className="text-gray-600 text-sm mb-4">Get detailed responses within 24 hours</p>
                             <a
                                 href="mailto:contact@durvalis.com"
-                                className="text-[var(--color-primary)] font-bold hover:text-red-800 transition-colors flex items-center gap-2 group"
+                                className="text-red-600 font-bold hover:text-red-800 transition-colors flex items-center gap-2 group"
                             >
                                 contact@durvalis.com
                                 <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all" />
                             </a>
                         </div>
 
-                        <div className="bg-white rounded-2xl p-8 shadow-lg shadow-gray-200/50 border border-gray-100 hover:-translate-y-1 transition-transform">
-                            <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4">
+                        <div className="bg-white rounded-2xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100 hover:-translate-y-2 transition-all duration-300 group">
+                            <div className="w-12 h-12 bg-gradient-to-br from-blue-50 to-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                 <MessageSquare size={24} />
                             </div>
                             <h3 className="text-lg font-bold text-gray-900 mb-2 font-serif">Quick Response</h3>
@@ -135,7 +137,7 @@ function ContactForm() {
                             </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-[var(--color-primary)] to-red-800 rounded-2xl p-8 text-white shadow-xl">
+                        <div className="bg-gradient-to-br from-red-600 to-red-800 rounded-2xl p-8 text-white shadow-xl shadow-red-900/30 hover:-translate-y-2 transition-all duration-300">
                             <h3 className="text-lg font-bold mb-4 font-serif">Before You Contact</h3>
                             <ul className="space-y-3 text-sm">
                                 {[
@@ -144,8 +146,8 @@ function ContactForm() {
                                     "Check our FAQ for quick answers"
                                 ].map((item, i) => (
                                     <li key={i} className="flex items-start gap-3">
-                                        <div className="w-1.5 h-1.5 bg-white/60 rounded-full mt-2 flex-shrink-0" />
-                                        <span className="text-white/90">{item}</span>
+                                        <div className="w-1.5 h-1.5 bg-white/80 rounded-full mt-2 flex-shrink-0" />
+                                        <span className="text-white/95">{item}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -159,21 +161,21 @@ function ContactForm() {
                         viewport={{ once: true }}
                         className="lg:col-span-2"
                     >
-                        <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 p-8 md:p-10">
+                        <div className="bg-white rounded-3xl shadow-2xl shadow-gray-200/50 border border-gray-100 p-8 md:p-10">
                             {isSuccess ? (
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     className="flex flex-col items-center justify-center text-center py-12"
                                 >
-                                    <div className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6 shadow-inner">
+                                    <div className="w-24 h-24 bg-gradient-to-br from-green-100 to-green-200 text-green-600 rounded-full flex items-center justify-center mb-6 shadow-xl shadow-green-900/20">
                                         <CheckCircle size={48} />
                                     </div>
                                     <h3 className="text-3xl font-bold text-gray-900 mb-3 font-serif">Message Received!</h3>
                                     <p className="text-gray-600 mb-8 max-w-sm">Thank you for contacting us. We'll get back to you within 24 hours.</p>
                                     <button
                                         onClick={() => setIsSuccess(false)}
-                                        className="px-8 py-4 bg-[var(--color-primary)] text-white font-bold rounded-xl hover:bg-red-800 transition-all shadow-lg shadow-red-900/20"
+                                        className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-800 text-white font-bold rounded-xl hover:shadow-xl transition-all shadow-lg shadow-red-900/30"
                                     >
                                         Send Another Message
                                     </button>
