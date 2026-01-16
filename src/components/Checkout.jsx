@@ -192,7 +192,7 @@ function Checkout({ onBack }) {
       };
 
       // Create checkout session
-      const response = await fetch('/api/create-checkout-session', {
+      const response = await fetch('/api/create-checkout-session.cjs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

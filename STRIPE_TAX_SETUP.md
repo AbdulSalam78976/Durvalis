@@ -86,7 +86,7 @@ STRIPE_SECRET_KEY=sk_test_your_key_here
 
 ## Code Implementation
 
-### API Configuration (`api/create-checkout-session.js`)
+### API Configuration (`api/create-checkout-session.cjs`)
 ```javascript
 automatic_tax: {
   enabled: true,

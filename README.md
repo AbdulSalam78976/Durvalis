@@ -11,8 +11,8 @@ This is a single-page application (SPA) for selling equine parasite control prod
 ```
 durvalis/
 ├── api/                          # Backend API endpoints
-│   ├── create-checkout-session.js  # Stripe checkout session creation
-│   └── webhooks.js                 # Stripe webhook handler
+│   ├── create-checkout-session.cjs  # Stripe checkout session creation
+│   └── webhooks.cjs                 # Stripe webhook handler
 ├── public/                       # Static assets
 │   ├── assets/                   # Product images
 │   │   ├── payment methods/      # Payment method icons
@@ -156,7 +156,7 @@ fetch('/api/create-checkout-session', {
 })
 ```
 
-### 2. Server-Side (create-checkout-session.js)
+### 2. Server-Side (create-checkout-session.cjs)
 ```javascript
 // Validates input → Creates Stripe session → Returns session ID
 const session = await stripe.checkout.sessions.create({
@@ -173,7 +173,7 @@ const session = await stripe.checkout.sessions.create({
 - Stripe processes payment
 - Redirects to success page on completion
 
-### 4. Webhooks (webhooks.js)
+### 4. Webhooks (webhooks.cjs)
 - Receives payment confirmation from Stripe
 - Logs order details
 - Can trigger order fulfillment process

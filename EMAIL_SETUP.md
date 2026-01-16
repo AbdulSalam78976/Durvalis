@@ -163,7 +163,7 @@ Business receives order notification
 
 ### Change Email Design
 
-Edit the `formatOrderEmail()` function in `api/webhooks.js`:
+Edit the `formatOrderEmail()` function in `api/webhooks.cjs`:
 
 ```javascript
 function formatOrderEmail(session, lineItems) {
@@ -179,7 +179,7 @@ function formatOrderEmail(session, lineItems) {
 
 ### Change Business Email
 
-Update the email address in `api/webhooks.js`:
+Update the email address in `api/webhooks.cjs`:
 
 ```javascript
 const businessEmail = 'your-email@yourdomain.com';
