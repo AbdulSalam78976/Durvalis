@@ -140,7 +140,10 @@ export default async function handler(req, res) {
     }
 
     // Security: Only return necessary data
-    res.status(200).json({ id: session.id });
+    res.status(200).json({ 
+      id: session.id,
+      url: session.url 
+    });
   } catch (err) {
     console.error('=== Stripe Error ===');
     console.error('Error message:', err.message);

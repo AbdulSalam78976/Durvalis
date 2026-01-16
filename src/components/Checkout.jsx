@@ -209,21 +209,18 @@ function Checkout({ onBack }) {
 
       const session = await response.json();
 
-      // Redirect to Stripe Checkout
-      const result = await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-
-      if (result.error) {
-        setError(result.error.message);
-      } else {
-        // Clear cart on successful redirect
+      // Redirect to Stripe Checkout using the session URL (modern approach)
+      if (session.url) {
+        // Clear cart before redirect
         clearCart();
+        // Redirect to Stripe Checkout
+        window.location.href = session.url;
+      } else {
+        throw new Error('No checkout URL received');
       }
     } catch (err) {
       console.error('Error:', err);
-      setError('Something went wrong. Please try again.');
-    } finally {
+      setError(err.message || 'Something went wrong. Please try again.');
       setIsProcessing(false);
     }
   };
