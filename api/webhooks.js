@@ -1,5 +1,7 @@
 // Vercel serverless function for Stripe webhooks
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Email sending function using EmailJS REST API
 async function sendEmail(to, subject, htmlContent) {
@@ -233,7 +235,7 @@ function formatOrderEmail(session, lineItems) {
   `;
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).end('Method Not Allowed');

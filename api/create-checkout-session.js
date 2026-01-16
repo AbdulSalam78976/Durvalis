@@ -1,12 +1,32 @@
 // Vercel serverless function for Stripe checkout
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
 
-module.exports = async function handler(req, res) {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+export default async function handler(req, res) {
+  // Add CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   // Security: Only allow POST requests
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).end('Method Not Allowed');
   }
+
+  // Debug logging
+  console.log('=== Checkout Session Request ===');
+  console.log('Environment check:', {
+    hasStripeKey: !!process.env.STRIPE_SECRET_KEY,
+    stripeKeyPrefix: process.env.STRIPE_SECRET_KEY?.substring(0, 7),
+    nodeEnv: process.env.NODE_ENV
+  });
 
   try {
     const { items, customerData } = req.body;
@@ -124,19 +144,19 @@ module.exports = async function handler(req, res) {
     // Security: Only return necessary data
     res.status(200).json({ id: session.id });
   } catch (err) {
-    console.error('Stripe error:', err);
-    console.error('Error details:', {
-      message: err.message,
-      type: err.type,
-      code: err.code,
-      statusCode: err.statusCode
-    });
+    console.error('=== Stripe Error ===');
+    console.error('Error message:', err.message);
+    console.error('Error type:', err.type);
+    console.error('Error code:', err.code);
+    console.error('Full error:', err);
     
-    // Return more helpful error in development
-    const isDev = process.env.NODE_ENV !== 'production';
+    // Return more helpful error message
+    const errorMessage = err.message || 'Payment processing error';
     res.status(500).json({ 
       error: 'Payment processing error. Please try again.',
-      ...(isDev && { details: err.message })
+      details: errorMessage,
+      type: err.type,
+      code: err.code
     });
   }
 };
