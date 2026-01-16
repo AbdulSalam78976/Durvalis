@@ -115,8 +115,6 @@ export default async function handler(req, res) {
         enabled: true,
       },
       
-      customer_creation: 'always',
-      
       metadata: {
         source: 'durvalis_website',
         deliveryInstructions: sanitizedCustomerData.deliveryInstructions || '',
