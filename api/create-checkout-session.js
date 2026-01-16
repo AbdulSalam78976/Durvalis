@@ -1,7 +1,7 @@
 // Vercel serverless function for Stripe checkout
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Security: Only allow POST requests
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -124,4 +124,4 @@ export default async function handler(req, res) {
     // Security: Don't expose internal error details to client
     res.status(500).json({ error: 'Payment processing error. Please try again.' });
   }
-}
+};

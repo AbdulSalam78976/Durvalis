@@ -233,7 +233,7 @@ function formatOrderEmail(session, lineItems) {
   `;
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).end('Method Not Allowed');
