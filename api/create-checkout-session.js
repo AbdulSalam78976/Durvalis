@@ -54,18 +54,13 @@ module.exports = async function handler(req, res) {
       quantity: item.quantity,
     }));
 
-    // Prepare session configuration with Stripe Tax
+    // Prepare session configuration
     const sessionConfig = {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/checkout`,
-      
-      // Enable automatic tax calculation with Stripe Tax
-      automatic_tax: {
-        enabled: true,
-      },
       
       // Shipping options - Free shipping
       shipping_options: [
@@ -114,14 +109,34 @@ module.exports = async function handler(req, res) {
       sessionConfig.customer_email = sanitizedCustomerData.email;
     }
 
-    // Create Stripe checkout session
-    const session = await stripe.checkout.sessions.create(sessionConfig);
+    // Try to create session with Stripe Tax first
+    let session;
+    try {
+      sessionConfig.automatic_tax = { enabled: true };
+      session = await stripe.checkout.sessions.create(sessionConfig);
+    } catch (taxError) {
+      // If Stripe Tax fails, try without it
+      console.log('Stripe Tax not available, creating session without tax calculation:', taxError.message);
+      delete sessionConfig.automatic_tax;
+      session = await stripe.checkout.sessions.create(sessionConfig);
+    }
 
     // Security: Only return necessary data
     res.status(200).json({ id: session.id });
   } catch (err) {
     console.error('Stripe error:', err);
-    // Security: Don't expose internal error details to client
-    res.status(500).json({ error: 'Payment processing error. Please try again.' });
+    console.error('Error details:', {
+      message: err.message,
+      type: err.type,
+      code: err.code,
+      statusCode: err.statusCode
+    });
+    
+    // Return more helpful error in development
+    const isDev = process.env.NODE_ENV !== 'production';
+    res.status(500).json({ 
+      error: 'Payment processing error. Please try again.',
+      ...(isDev && { details: err.message })
+    });
   }
 };

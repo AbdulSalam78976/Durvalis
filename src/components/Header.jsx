@@ -36,7 +36,7 @@ function Header({ onCartOpen }) {
           {/* Logo - Badge Style */}
           <a href="#home" className="group">
             <div className="border-3 border-[var(--color-primary)] rounded-full px-5 py-1 transition-transform group-hover:scale-105">
-              <span className="text-3xl font-sans font-black italic tracking-tighter text-gray-900 leading-none">
+              <span className="text-2xl font-sans font-black italic tracking-tighter text-gray-900 leading-none">
                 DURVALIS
               </span>
             </div>
