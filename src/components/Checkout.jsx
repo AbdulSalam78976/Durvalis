@@ -95,9 +95,7 @@ function Checkout({ onBack }) {
 
       // Redirect to Stripe Checkout
       if (session.url) {
-        // Clear cart before redirect
-        clearCart();
-        // Redirect to Stripe Checkout
+        // Redirect to Stripe Checkout (don't clear cart yet - wait for successful payment)
         window.location.href = session.url;
       } else {
         throw new Error('No checkout URL received');

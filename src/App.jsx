@@ -58,7 +58,9 @@ function App() {
 
   if (currentPage === 'success') {
     return (
-      <CheckoutSuccess onBackToHome={() => navigateTo('home')} />
+      <CartProvider>
+        <CheckoutSuccess onBackToHome={() => navigateTo('home')} />
+      </CartProvider>
     );
   }
 

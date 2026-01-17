@@ -1,7 +1,16 @@
 import { motion } from 'framer-motion';
 import { CheckCircle, Package, Mail, ArrowRight, Home } from 'lucide-react';
+import { useEffect } from 'react';
+import { useCart } from '../context/CartContext';
 
 function CheckoutSuccess({ onBackToHome }) {
+  const { clearCart } = useCart();
+
+  // Clear cart when payment is successful
+  useEffect(() => {
+    clearCart();
+  }, [clearCart]);
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">

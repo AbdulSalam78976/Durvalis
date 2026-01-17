@@ -31,7 +31,7 @@ function Header({ onCartOpen, onNavigate }) {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full overflow-hidden ${isScrolled ? 'py-2 glass shadow-sm' : 'py-4 sm:py-6 bg-transparent'}`}
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <nav className="flex justify-between items-center min-h-0">
+        <nav className="flex justify-between items-center min-h-0 relative">
           {/* Logo - Mobile Optimized */}
           <button onClick={() => onNavigate('home')} className="group flex-shrink-0">
             <div className="border-2 border-[var(--color-primary)] rounded-full px-3 py-1 sm:px-5 transition-transform group-hover:scale-105">
@@ -101,18 +101,30 @@ function Header({ onCartOpen, onNavigate }) {
             </button>
           </div>
         </nav>
+      </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
+      {/* Mobile Menu - Moved outside the main container div for better z-index control */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/20 z-[49] md:hidden top-0"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            
+            {/* Menu */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="fixed top-[70px] left-0 right-0 z-[60] md:hidden"
             >
-              <div className="absolute top-full left-0 right-0 bg-white shadow-2xl border-t border-gray-100 mt-2 mx-4 rounded-2xl">
+              <div className="bg-white shadow-2xl border border-gray-200 mt-2 mx-4 rounded-2xl max-w-sm ml-auto mr-4">
                 <div className="py-6 px-4 space-y-2">
                   {navLinks.map((link, index) => (
                     <motion.button
@@ -169,9 +181,9 @@ function Header({ onCartOpen, onNavigate }) {
                 </div>
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
