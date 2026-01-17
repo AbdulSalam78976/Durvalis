@@ -127,15 +127,12 @@ export default async function handler(req, res) {
       sessionConfig.customer_email = sanitizedCustomerData.email;
     }
 
-    // Try to create session with Stripe Tax first (only in test mode for now)
+    // Try to create session with Stripe Tax first
     let session;
-    const isLiveMode = process.env.STRIPE_SECRET_KEY?.startsWith('sk_live_');
     
     try {
-      if (!isLiveMode) {
-        // Only enable Stripe Tax in test mode until live mode is configured
-        sessionConfig.automatic_tax = { enabled: true };
-      }
+      // Enable Stripe Tax for both test and live mode
+      sessionConfig.automatic_tax = { enabled: true };
       session = await stripe.checkout.sessions.create(sessionConfig);
     } catch (taxError) {
       // If Stripe Tax fails, try without it

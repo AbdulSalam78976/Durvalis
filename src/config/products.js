@@ -35,7 +35,7 @@ export const products = {
     id: 'pack-1',
     name: 'Single Tube',
     quantity: 1,
-    price: 14.99,
+    price: 1,
     originalPrice: 19.99,
     savings: 5.00,
     popular: false,
