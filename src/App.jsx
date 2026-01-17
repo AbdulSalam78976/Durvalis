@@ -67,6 +67,7 @@ function App() {
       <div className="min-h-screen">
         <Header 
           onCartOpen={() => setIsCartOpen(true)}
+          onNavigate={navigateTo}
         />
         
         {currentPage === 'home' && (

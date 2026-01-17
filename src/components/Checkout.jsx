@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ShoppingCart, Plus, Minus, Mail, FileText, Lock, Truck, Package } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Plus, Minus, Mail, FileText, Lock, Truck, Package, AlertCircle } from 'lucide-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { useCart } from '../context/CartContext';
 

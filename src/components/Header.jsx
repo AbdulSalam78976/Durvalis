@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ShoppingCart, ShieldCheck, ArrowRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
-function Header({ onCartOpen }) {
+function Header({ onCartOpen, onNavigate }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { itemCount } = useCart();
@@ -28,31 +28,30 @@ function Header({ onCartOpen }) {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-2 glass shadow-sm' : 'py-6 bg-transparent'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full overflow-hidden ${isScrolled ? 'py-2 glass shadow-sm' : 'py-4 sm:py-6 bg-transparent'}`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav className="flex justify-between items-center">
-          {/* Logo */}
-          {/* Logo - Badge Style */}
-          <a href="#home" className="group">
-            <div className="border-3 border-[var(--color-primary)] rounded-full px-5 py-1 transition-transform group-hover:scale-105">
-              <span className="text-2xl font-sans font-black italic tracking-tighter text-gray-900 leading-none">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <nav className="flex justify-between items-center min-h-0">
+          {/* Logo - Mobile Optimized */}
+          <button onClick={() => onNavigate('home')} className="group flex-shrink-0">
+            <div className="border-2 border-[var(--color-primary)] rounded-full px-3 py-1 sm:px-5 transition-transform group-hover:scale-105">
+              <span className="text-lg sm:text-2xl font-sans font-black italic tracking-tighter text-gray-900 leading-none">
                 DURVALIS
               </span>
             </div>
-          </a>
+          </button>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.name}
-                href={link.href}
+                onClick={() => onNavigate(link.href.replace('/', '') || 'home')}
                 className="text-sm font-medium hover:text-[var(--color-primary)] transition-colors text-gray-700 relative group uppercase tracking-widest"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--color-primary)] transition-all duration-300 group-hover:w-full"></span>
-              </a>
+              </button>
             ))}
 
             {/* Cart Button */}
@@ -72,17 +71,17 @@ function Header({ onCartOpen }) {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center gap-1 flex-shrink-0">
             {/* Mobile Cart Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={onCartOpen}
-              className="relative bg-gray-100 text-gray-700 p-2.5 rounded-full font-medium shadow-sm hover:shadow-md hover:bg-gray-200 transition-all"
+              className="relative bg-gray-100 text-gray-700 p-2 rounded-full font-medium shadow-sm hover:shadow-md hover:bg-gray-200 transition-all"
             >
-              <ShoppingCart size={18} />
+              <ShoppingCart size={16} />
               {itemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center text-[10px]">
                   {itemCount}
                 </span>
               )}
@@ -95,9 +94,9 @@ function Header({ onCartOpen }) {
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
-                <X size={24} className="text-gray-900" />
+                <X size={20} className="text-gray-900" />
               ) : (
-                <Menu size={24} className="text-gray-900" />
+                <Menu size={20} className="text-gray-900" />
               )}
             </button>
           </div>
@@ -116,20 +115,22 @@ function Header({ onCartOpen }) {
               <div className="absolute top-full left-0 right-0 bg-white shadow-2xl border-t border-gray-100 mt-2 mx-4 rounded-2xl">
                 <div className="py-6 px-4 space-y-2">
                   {navLinks.map((link, index) => (
-                    <motion.a
+                    <motion.button
                       key={link.name}
-                      href={link.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        onNavigate(link.href.replace('/', '') || 'home');
+                      }}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="block text-gray-700 font-semibold hover:text-[var(--color-primary)] py-3 px-4 hover:bg-red-50 rounded-xl transition-all group"
+                      className="w-full text-left block text-gray-700 font-semibold hover:text-[var(--color-primary)] py-3 px-4 hover:bg-red-50 rounded-xl transition-all group"
                     >
                       <div className="flex items-center justify-between">
                         <span>{link.name}</span>
                         <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[var(--color-primary)]" />
                       </div>
-                    </motion.a>
+                    </motion.button>
                   ))}
                   
                   {/* Divider */}

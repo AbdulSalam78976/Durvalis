@@ -24,10 +24,10 @@ function ProductDetails({ amazonUrl, onAddToCart, onBuyNow }) {
 
   return (
     <section id="product" className="py-20 bg-gradient-to-b from-white to-gray-50 overflow-x-hidden">
-      {/* Background decoration */}
+      {/* Background decoration - Mobile Safe */}
       <div className="absolute inset-0 bg-grid-gray-200/[0.02] bg-grid-16" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-red-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
+      <div className="absolute top-0 right-0 w-64 h-64 sm:w-96 sm:h-96 bg-red-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 hidden sm:block" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 sm:w-96 sm:h-96 bg-blue-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4 hidden sm:block" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start">
@@ -55,7 +55,7 @@ function ProductDetails({ amazonUrl, onAddToCart, onBuyNow }) {
                       transition={{ duration: 0.4 }}
                       src={selectedImage}
                       alt="Selected product view"
-                      className="w-full h-full object-contain p-12"
+                      className="w-full h-full object-contain p-8"
                     />
                   </AnimatePresence>
                   
