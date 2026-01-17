@@ -23,14 +23,14 @@ function ProductDetails({ amazonUrl, onAddToCart, onBuyNow }) {
   ];
 
   return (
-    <section id="product" className="py-20 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+    <section id="product" className="py-20 bg-gradient-to-b from-white to-gray-50 overflow-x-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-gray-200/[0.02] bg-grid-16" />
       <div className="absolute top-0 right-0 w-96 h-96 bg-red-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start">
           
           {/* Left Column - Images & Key Benefits */}
           <div className="space-y-8">
@@ -113,7 +113,7 @@ function ProductDetails({ amazonUrl, onAddToCart, onBuyNow }) {
               </div>
 
               {/* Trust Badges */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3 hover:shadow-md transition-shadow">
                   <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Shield size={22} className="text-green-600" />
@@ -209,7 +209,7 @@ function ProductDetails({ amazonUrl, onAddToCart, onBuyNow }) {
                 <Package size={18} className="text-red-600" />
                 Product Specifications
               </h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {specifications.map((spec, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <div className="w-9 h-9 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">

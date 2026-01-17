@@ -72,17 +72,35 @@ function Header({ onCartOpen }) {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <X size={24} className="text-gray-900" />
-            ) : (
-              <Menu size={24} className="text-gray-900" />
-            )}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            {/* Mobile Cart Button */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onCartOpen}
+              className="relative bg-gray-100 text-gray-700 p-2.5 rounded-full font-medium shadow-sm hover:shadow-md hover:bg-gray-200 transition-all"
+            >
+              <ShoppingCart size={18} />
+              {itemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                  {itemCount}
+                </span>
+              )}
+            </motion.button>
+            
+            {/* Menu Button */}
+            <button
+              className="text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <X size={24} className="text-gray-900" />
+              ) : (
+                <Menu size={24} className="text-gray-900" />
+              )}
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Menu */}
