@@ -344,21 +344,7 @@ function Checkout({ onBack }) {
               </div>
             </motion.div>
 
-            {/* Security Notice */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-blue-50 rounded-2xl p-6 border border-blue-200"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <Lock size={20} className="text-blue-600" />
-                <h3 className="font-bold text-blue-900">Secure Checkout</h3>
-              </div>
-              <p className="text-blue-800 text-sm">
-                Your payment information is processed securely by Stripe. We never store your credit card details.
-              </p>
-            </motion.div>
+          
           </div>
         </div>
       </div>
