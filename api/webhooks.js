@@ -268,7 +268,7 @@ export default async function handler(req, res) {
         // Format email content
         const emailHtml = formatOrderEmail(session, lineItems);
         const customerEmail = session.customer_details?.email;
-        const businessEmail = 'contact@durvalis.com';
+        const businessEmail = 'info@durvalis.com';
 
         // Send email to customer
         if (customerEmail) {
