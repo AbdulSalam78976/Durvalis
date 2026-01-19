@@ -5,7 +5,7 @@ import { Send, User, Mail, MessageSquare, CheckCircle, Clock, ArrowRight, AlertC
 import emailjs from '@emailjs/browser';
 
 // Initialize EmailJS
-emailjs.init('S4RiBj9HvdQhBnUVM');
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
 function ContactForm() {
     const [formData, setFormData] = useState({
@@ -32,10 +32,10 @@ function ContactForm() {
         setError('');
 
         try {
-            // EmailJS configuration
-            const serviceId = 'service_kt2qcvw';
-            const templateId = 'template_00qdw28';
-            const publicKey = 'S4RiBj9HvdQhBnUVM';
+            // EmailJS configuration from environment variables
+            const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+            const templateId = import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID;
+            const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
             const templateParams = {
                 from_name: formData.name,
