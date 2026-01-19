@@ -44,12 +44,12 @@ function ContactForm() {
                 message: formData.message
             };
 
-            console.log('Sending email with params:', templateParams);
-            console.log('Service ID:', serviceId);
-            console.log('Template ID:', templateId);
+            // console.log('Sending email with params:', templateParams);
+            // console.log('Service ID:', serviceId);
+            // console.log('Template ID:', templateId);
 
             const result = await emailjs.send(serviceId, templateId, templateParams, publicKey);
-            console.log('EmailJS Success:', result);
+            // console.log('EmailJS Success:', result);
 
             setIsSubmitting(false);
             setIsSuccess(true);
@@ -58,9 +58,9 @@ function ContactForm() {
             setTimeout(() => setIsSuccess(false), 5000);
         } catch (err) {
             setIsSubmitting(false);
-            console.error('EmailJS Error Details:', err);
-            console.error('Error status:', err.status);
-            console.error('Error text:', err.text);
+            // console.error('EmailJS Error Details:', err);
+            // console.error('Error status:', err.status);
+            // console.error('Error text:', err.text);
 
             let errorMessage = 'Failed to send message. ';
             if (err.status === 400) {

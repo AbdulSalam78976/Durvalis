@@ -32,7 +32,7 @@ async function sendEmail(to, subject, htmlContent) {
 
     return true;
   } catch (error) {
-    console.error('Email sending failed:', error);
+    // console.error('Email sending failed:', error);
     return false;
   }
 }
@@ -249,7 +249,7 @@ export default async function handler(req, res) {
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
   } catch (err) {
-    console.error('Webhook signature verification failed:', err.message);
+    // console.error('Webhook signature verification failed:', err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
@@ -257,7 +257,7 @@ export default async function handler(req, res) {
   switch (event.type) {
     case 'checkout.session.completed':
       const session = event.data.object;
-      console.log('Payment successful for session:', session.id);
+      // console.log('Payment successful for session:', session.id);
       
       try {
         // Get line items from the session
@@ -277,7 +277,7 @@ export default async function handler(req, res) {
             `Order Confirmation - ${session.id}`,
             emailHtml
           );
-          console.log('Customer email sent to:', customerEmail);
+          // console.log('Customer email sent to:', customerEmail);
         }
 
         // Send email to business
@@ -286,23 +286,23 @@ export default async function handler(req, res) {
           `New Order Received - ${session.id}`,
           emailHtml
         );
-        console.log('Business notification sent to:', businessEmail);
+        // console.log('Business notification sent to:', businessEmail);
 
         // Log order details
-        console.log('Order details:', {
-          sessionId: session.id,
-          customerEmail: customerEmail,
-          customerName: session.customer_details?.name,
-          amountTotal: session.amount_total / 100,
-          currency: session.currency,
-          paymentStatus: session.payment_status,
-          shippingAddress: session.shipping_details?.address,
-          items: lineItems.data.map(item => ({
-            description: item.description,
-            quantity: item.quantity,
-            amount: item.amount_total / 100
-          }))
-        });
+        // console.log('Order details:', {
+        //   sessionId: session.id,
+        //   customerEmail: customerEmail,
+        //   customerName: session.customer_details?.name,
+        //   amountTotal: session.amount_total / 100,
+        //   currency: session.currency,
+        //   paymentStatus: session.payment_status,
+        //   shippingAddress: session.shipping_details?.address,
+        //   items: lineItems.data.map(item => ({
+        //     description: item.description,
+        //     quantity: item.quantity,
+        //     amount: item.amount_total / 100
+        //   }))
+        // });
       } catch (error) {
         console.error('Error processing order confirmation:', error);
       }
@@ -311,16 +311,16 @@ export default async function handler(req, res) {
 
     case 'payment_intent.succeeded':
       const paymentIntent = event.data.object;
-      console.log('Payment intent succeeded:', paymentIntent.id);
+      // console.log('Payment intent succeeded:', paymentIntent.id);
       break;
 
     case 'payment_intent.payment_failed':
       const failedPayment = event.data.object;
-      console.log('Payment failed:', failedPayment.id);
+      // console.log('Payment failed:', failedPayment.id);
       break;
 
     default:
-      console.log(`Unhandled event type ${event.type}`);
+      // console.log(`Unhandled event type ${event.type}`);
   }
 
   res.json({ received: true });
