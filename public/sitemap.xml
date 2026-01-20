@@ -2,44 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
-  <!-- Homepage -->
+  <!-- Homepage - Main canonical URL -->
   <url>
     <loc>https://durvalis.com/</loc>
-    <lastmod>2025-01-14</lastmod>
+    <lastmod>2025-01-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://durvalis.com/assets/hero.webp</image:loc>
-      <image:title>Durvalis Ivermectin Paste</image:title>
+      <image:title>Durvalis Ivermectin Paste - Premium Equine Dewormer</image:title>
+      <image:caption>Professional-grade apple-flavored dewormer for complete equine parasite control</image:caption>
     </image:image>
-  </url>
-  
-  <!-- Product Page -->
-  <url>
-    <loc>https://durvalis.com/product</loc>
-    <lastmod>2025-01-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
     <image:image>
       <image:loc>https://durvalis.com/assets/1.webp</image:loc>
-      <image:title>Durvalis Ivermectin Paste Product</image:title>
+      <image:title>Durvalis Product Image</image:title>
+      <image:caption>Easy-to-administer apple-flavored equine dewormer</image:caption>
     </image:image>
   </url>
   
-  <!-- Contact Page -->
-  <url>
-    <loc>https://durvalis.com/contact</loc>
-    <lastmod>2025-01-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Checkout Success Page -->
+  <!-- Success Page - Only legitimate separate page -->
   <url>
     <loc>https://durvalis.com/success</loc>
-    <lastmod>2025-01-14</lastmod>
+    <lastmod>2025-01-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.3</priority>
   </url>
   
 </urlset>

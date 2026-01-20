@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /checkout
+Disallow: /test-webhook.html
+
+# Prevent indexing of duplicate content
+Disallow: /index.html
+Disallow: /product
+Disallow: /contact
 
 Sitemap: https://durvalis.com/sitemap.xml
+
+# Crawl-delay for better server performance
+Crawl-delay: 1
