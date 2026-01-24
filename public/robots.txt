@@ -1,13 +1,16 @@
 User-agent: *
 Allow: /
+
+# Block API endpoints and admin areas
 Disallow: /api/
 Disallow: /checkout
+Disallow: /success
+
+# Block test files
 Disallow: /test-webhook.html
 
-# Prevent indexing of duplicate content
+# Block duplicate content files
 Disallow: /index.html
-Disallow: /product
-Disallow: /contact
 
 Sitemap: https://durvalis.com/sitemap.xml
 
