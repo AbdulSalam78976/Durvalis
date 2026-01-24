@@ -17,6 +17,7 @@ function App() {
   // Handle URL routing
   useEffect(() => {
     const path = window.location.pathname;
+    const hash = window.location.hash;
     const urlParams = new URLSearchParams(window.location.search);
     
     if (path === '/checkout') {
@@ -29,6 +30,19 @@ function App() {
       setCurrentPage('contact');
     } else {
       setCurrentPage('home');
+      
+      // Handle hash fragments for scrolling to sections
+      if (hash) {
+        setTimeout(() => {
+          const element = document.querySelector(hash);
+          if (element) {
+            element.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }, 100); // Small delay to ensure page is rendered
+      }
     }
   }, []);
 
@@ -38,6 +52,30 @@ function App() {
     const url = page === 'home' ? '/' : `/${page}`;
     window.history.pushState({}, '', url);
   };
+
+  // Handle hash navigation for smooth scrolling
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
+  // Listen for hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.substring(1); // Remove the #
+      if (hash) {
+        scrollToSection(hash);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const handleCheckout = () => {
     setIsCartOpen(false);
@@ -74,9 +112,8 @@ function App() {
         
         {currentPage === 'home' && (
           <HomePage 
-            amazonUrl={amazonUrl} 
-            onAddToCart={handleAddToCart}
-            onBuyNow={handleCheckout}
+            amazonUrl={amazonUrl}
+            onNavigateToProduct={() => navigateTo('product')}
           />
         )}
         

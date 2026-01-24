@@ -3,6 +3,11 @@
 @import "tailwindcss";
 
 @layer base {
+  /* Smooth scrolling for anchor links */
+  html {
+    scroll-behavior: smooth;
+  }
+  
   :root {
     /* Brand Colors */
     --color-primary: #B91C1C;

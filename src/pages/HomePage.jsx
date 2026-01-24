@@ -5,7 +5,7 @@ import FDAApproval from '../components/FDAApproval';
 import FAQ from '../components/FAQ';
 import SEO from '../components/SEO';
 
-function HomePage({ amazonUrl }) {
+function HomePage({ amazonUrl, onNavigateToProduct }) {
   return (
     <div className="min-h-screen pt-20">
       <SEO
@@ -16,6 +16,7 @@ function HomePage({ amazonUrl }) {
       
       <Hero 
         amazonUrl={amazonUrl}
+        onNavigateToProduct={onNavigateToProduct}
       />
       <HowToUse />
       <SafetyBrand />

@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Star, ShieldCheck, Award } from 'lucide-react';
 
-function Hero({ amazonUrl }) {
+function Hero({ amazonUrl, onNavigateToProduct }) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-50">
 
@@ -79,15 +79,15 @@ function Hero({ amazonUrl }) {
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               {/* Buy Now Button */}
-              <a
-                href="/product"
+              <button
+                onClick={() => onNavigateToProduct && onNavigateToProduct()}
                 className="group relative px-8 py-4 bg-gradient-to-r from-[var(--color-primary)] to-red-800 text-white font-bold rounded-xl shadow-xl shadow-red-900/30 hover:shadow-2xl hover:shadow-red-900/40 transition-all hover:-translate-y-1 flex items-center justify-center gap-3 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-red-800 to-[var(--color-primary)] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <ShieldCheck size={20} className="relative z-10" />
                 <span className="relative z-10">Buy Now</span>
                 <ArrowRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </button>
 
               {/* Shop on Amazon Button */}
               <a
